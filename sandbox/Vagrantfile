@@ -1,0 +1,43 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+ENV["LC_ALL"] = "en_US.UTF-8"
+
+Vagrant.configure("2") do |config|
+  config.env.enable
+
+  boxes = [
+    {
+        :name => ENV['JENKINSMAIN_NAME'] || "jenkinsmain",
+        :ip => ENV['JENKINSMAIN_IP'] || "192.168.1.70",
+        :mem => ENV['JENKINSMAIN_MEMORY'] || "1024",
+        :cpu => ENV['JENKINSMAIN_CPU'] || "1"
+    },
+    {
+        :name => ENV['JENKINSNODE1_NAME'] || "jenkinsnode1",
+        :ip => ENV['JENKINSNODE1_IP'] || "192.168.1.71",
+        :mem => ENV['JENKINSNODE1_MEMORY'] || "1024",
+        :cpu => ENV['JENKINSNODE1_CPU'] || "1"
+    },
+    {
+        :name => ENV['JENKINSNODE2_NAME'] || "jenkinsnode2",
+        :ip => ENV['JENKINSNODE2_IP'] || "192.168.1.72",
+        :mem => ENV['JENKINSNODE2_MEMORY'] || "1024",
+        :cpu => ENV['JENKINSNODE2_CPU'] || "1"
+    }
+]
+
+  config.vm.box = "ubuntu/focal64"
+  #config.vm.synced_folder ".", "/vagrant", id: "vagrant-root", disabled: true
+  boxes.each do |opts|
+    config.vm.define opts[:name] do |config|
+      config.vm.hostname = opts[:name]
+      config.vm.provider "virtualbox" do |v|
+        v.customize ["modifyvm", :id, "--name", opts[:name]]
+        v.customize ["modifyvm", :id, "--memory", opts[:mem]]
+        v.customize ["modifyvm", :id, "--cpus", opts[:cpu]]
+      end
+      config.vm.network :public_network, bridge: ENV['HOST_BRIDGE'], ip: opts[:ip], hostname: true
+    end
+  end
+end
