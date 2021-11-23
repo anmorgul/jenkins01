@@ -36,6 +36,6 @@ install_java:
 install_node:
 	( \
       source ../venv/bin/activate; \
-	  ansible-playbook install_node.yml; \
+	  ansible-playbook install_node.yml -vvvv; \
     )
 

@@ -6,8 +6,9 @@
   remote_user: vagrant
   become: true
   vars:
-    # NODEJS_VERSION: "14.15.0"
+    NODEJS_VERSION: "16"
     # ansible_distribution_release: "Focal"
+    NPM: "8"
   tasks:
     - name: Install the gpg key for nodejs LTS
       apt_key:
@@ -16,7 +17,7 @@
 
     - name: Install the nodejs LTS repos
       apt_repository:
-        repo: "deb https://deb.nodesource.com/node_node_14.15 focal main"
+        repo: "deb https://deb.nodesource.com/node_{{ NODEJS_VERSION }}.x focal main"
         state: present
         update_cache: yes
 
@@ -25,7 +26,9 @@
         name: nodejs
         state: present
 
-    - name: Install the npm
-      apt:
-        name: npm
-        state: present
+    # - name: Install the npm
+    #   apt:
+    #     name: npm
+    #     state: present
+    - name: npm self-update
+      command: npm install npm@{{ NPM }} -g
