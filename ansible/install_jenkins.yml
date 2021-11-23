@@ -1,0 +1,15 @@
+---
+
+- name: Playbook for jenkins installation
+  gather_facts: true
+  hosts: jenkins
+  remote_user: vagrant
+
+  tasks:
+    - name: Install mc
+      become: true
+      ansible.builtin.apt:
+        name:
+          - mc
+        state: present
+        update_cache: yes

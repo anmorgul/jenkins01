@@ -1,0 +1,30 @@
+---
+
+- name: generate SSH keys
+  hosts: 127.0.0.1
+  connection: local
+
+  vars:
+    # ssh_key_jenkinsnode_file: id_rsa_jenkinsnode
+    ssh_key_jenkinsmain_file: id_rsa_jenkinsmain
+
+  tasks:
+
+    # - name: generate SSH key "{{ssh_key_jenkinsnode_file}}"
+    #   openssh_keypair:
+    #     path: "../.keys/jenkinsnode/{{ssh_key_jenkinsnode_file}}"
+    #     type: rsa
+    #     size: 4096
+    #     state: present
+    #     force: no
+    #     comment: jenkinsnode
+
+    - name: generate SSH key "{{ssh_key_jenkinsmain_file}}"
+      openssh_keypair:
+        path: "../.keys/jenkinsmain/{{ssh_key_jenkinsmain_file}}"
+        type: rsa
+        size: 4096
+        state: present
+        force: no
+        comment: jenkins
+...

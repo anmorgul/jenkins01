@@ -1,0 +1,31 @@
+---
+
+- name: Playbook for node.js and npm installation
+  gather_facts: true
+  hosts: jenkinsnode
+  remote_user: vagrant
+  become: true
+  vars:
+    # NODEJS_VERSION: "14.15.0"
+    # ansible_distribution_release: "Focal"
+  tasks:
+    - name: Install the gpg key for nodejs LTS
+      apt_key:
+        url: "https://deb.nodesource.com/gpgkey/nodesource.gpg.key"
+        state: present
+
+    - name: Install the nodejs LTS repos
+      apt_repository:
+        repo: "deb https://deb.nodesource.com/node_node_14.15 focal main"
+        state: present
+        update_cache: yes
+
+    - name: Install the nodejs
+      apt:
+        name: nodejs
+        state: present
+
+    - name: Install the npm
+      apt:
+        name: npm
+        state: present

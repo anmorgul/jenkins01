@@ -1,0 +1,33 @@
+---
+
+- name: Playbook for add user jenkins for jenkinsmain
+  gather_facts: true
+  hosts: jenkinsmain
+  remote_user: vagrant
+  become: true
+
+  tasks:
+  
+    - name: Add the user 'jenkins'
+      #hosts: jenkinsmain
+      ansible.builtin.user:
+        name: jenkins
+        shell: /bin/bash
+
+- name: Playbook for add user jenkinsnode for jenkinsnode
+  gather_facts: true
+  hosts: jenkinsnode
+  remote_user: vagrant
+  become: true
+
+  tasks:
+    - name: Add the user 'jenkinsnode'
+      ansible.builtin.user:
+        name: jenkinsnode
+        shell: /bin/bash
+
+    - name: Set authorized key taken from file
+      ansible.posix.authorized_key:
+        user: jenkinsnode
+        state: present
+        key: "{{ lookup('file', '../.keys/jenkinsmain/id_rsa_jenkinsmain.pub') }}"
