@@ -18,12 +18,6 @@ Vagrant.configure("2") do |config|
         :ip => ENV['JENKINSNODE1_IP'] || "192.168.1.71",
         :mem => ENV['JENKINSNODE1_MEMORY'] || "1024",
         :cpu => ENV['JENKINSNODE1_CPU'] || "1"
-    },
-    {
-        :name => ENV['JENKINSNODE2_NAME'] || "jenkinsnode2",
-        :ip => ENV['JENKINSNODE2_IP'] || "192.168.1.72",
-        :mem => ENV['JENKINSNODE2_MEMORY'] || "1024",
-        :cpu => ENV['JENKINSNODE2_CPU'] || "1"
     }
 ]
 
