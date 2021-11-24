@@ -31,3 +31,11 @@ Detailed instructions are located in the Sandbox directory.
 python
 
 
+### VCS
+add settings:
+    "files.watcherExclude": {
+        "**/.git/objects/**": true,
+        "**/.git/subtree-cache/**": true,
+        "**/node_modules/*/**": true,
+        "**/venv: true
+    }
