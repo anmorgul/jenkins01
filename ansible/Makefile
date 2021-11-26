@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 preinit: install_req init
-init: generate_key adduser install_jenkins install_java install_node
+init: generate_key adduser install_docker install_jenkins install_java install_node
 
 	   python3 -m venv ../venv; \
 
@@ -21,9 +21,14 @@ adduser:
 	   ansible-playbook adduser.yml; \
     )
 
+install_docker:
+	( source ../venv/bin/activate; \
+	  ansible-playbook install_docker.yml -v; \
+    )
+
 install_jenkins:
 	( source ../venv/bin/activate; \
-	  ansible-playbook install_jenkins.yml -vv; \
+	  ansible-playbook install_jenkins.yml -v; \
     )
 
 install_java:
