@@ -5,13 +5,13 @@ install_plugins:
 	vagrant plugin install vagrant-hostsupdater
 	vagrant plugin install vagrant-env
 
-vagrant_up:
+up:
 	vagrant up
 
-vagrant_halt:
+halt:
 	vagrant halt jenkinsmain jenkinsnode1 
 #jenkinsnode2
 
-vagrant_destroy:
+destroy:
 	vagrant destroy jenkinsmain jenkinsnode1 
 #jenkinsnode2

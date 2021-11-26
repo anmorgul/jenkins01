@@ -3,13 +3,27 @@
 - name: Playbook for jenkins installation
   gather_facts: true
   hosts: jenkins
+  become: true
   remote_user: vagrant
 
-  tasks:
-    - name: Install mc
-      become: true
-      ansible.builtin.apt:
-        name:
-          - mc
-        state: present
-        update_cache: yes
+  vars:
+    jenkins_version: "2.73.1"
+    jenkins_hostname: "jenkinsmain"
+    jenkins_port: 8080
+    jenkins_install_via: "docker"
+    jenkins_jobs:
+      - "my-first-job"
+      - "another-awesome-job"
+    jenkins_include_secrets: true
+    jenkins_include_custom_files: true
+    jenkins_custom_files:
+      - src: "jenkins.plugins.openstack.compute.UserDataConfig.xml"
+        dest: "jenkins.plugins.openstack.compute.UserDataConfig.xml"
+    jenkins_plugins:
+      - git
+      - blueocean
+    jenkins_custom_plugins:
+      - "openstack-cloud-plugin/openstack-cloud.jpi"
+
+  roles:
+    - emmetog.jenkins

@@ -50,10 +50,10 @@
     docker_compose_current_version.stdout is defined
     and docker_compose_version not in docker_compose_current_version.stdout
 
-- set_fact:
-    docker_compose_current_version: "{{ docker_compose_current_version.stdout | regex_search('(\\d+(\\.\\d+)+)') }}"
-  when:
-    - docker_compose_current_version.stdout is defined
+# - set_fact:
+#     docker_compose_current_version: "{{ docker_compose_current_version.stdout | regex_search('(\\d+(\\.\\d+)+)') }}"
+#   when:
+#     - docker_compose_current_version.stdout is defined
 
 - name: Install or upgrade docker-compose
   get_url: 
