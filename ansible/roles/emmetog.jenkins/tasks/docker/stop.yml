@@ -1,9 +1,10 @@
 ---
 - name: Container is stopped
-  docker_container:
+  community.docker.docker_container:
     name: "{{ jenkins_docker_container_name }}"
     image: "{{ jenkins_docker_image }}:{{ jenkins_version }}"
     published_ports: "{{ jenkins_port }}:8080"
+    container_default_behavior: "no_defaults"
     volumes:
       - "{{ jenkins_home }}:/var/jenkins_home"
     env:

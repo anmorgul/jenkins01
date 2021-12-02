@@ -18,3 +18,4 @@
     owner: "{{ jenkins_config_owner }}"
     group: "{{ jenkins_config_group }}"
   with_items: "{{ jenkins_custom_files }}"
+

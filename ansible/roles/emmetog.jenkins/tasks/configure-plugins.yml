@@ -1,4 +1,12 @@
 ---
+- name: Create intermediate dirs for custom files
+  file:
+    path: "{{ jenkins_home }}/plugins/"
+    owner: "{{ jenkins_config_owner }}"
+    group: "{{ jenkins_config_group }}"
+    mode: 0755
+    state: directory
+
 - name: Custom plugins are installed
   copy:
     src: "{{ item }}"

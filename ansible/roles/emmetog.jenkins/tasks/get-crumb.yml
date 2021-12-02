@@ -23,5 +23,5 @@
 - name: Save Jenkins crumb cookie for Jenkins >= 2.176.2
   set_fact:
     jenkins_crumb_cookie: "{{ jenkins_crumb.set_cookie }}"
-  when: >
-    jenkins_crumb.status == 200 and jenkins_version is version_compare("2.176.2", ">=")
+  # when: >
+  #   jenkins_crumb.status == 200 and jenkins_version is version_compare("2.176.2", ">=")

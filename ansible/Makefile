@@ -28,7 +28,7 @@ install_docker:
 
 install_jenkins:
 	( source ../venv/bin/activate; \
-	  ansible-playbook install_jenkins.yml -vvvv; \
+	  ansible-playbook install_jenkins.yml -vv; \
     )
 
 install_java:
@@ -39,6 +39,6 @@ install_java:
 
 install_node:
 	( source ../venv/bin/activate; \
-	  ansible-playbook install_node.yml -vvvv; \
+	  ansible-playbook install_node.yml; \
     )
 

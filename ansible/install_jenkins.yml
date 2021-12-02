@@ -7,23 +7,25 @@
   remote_user: vagrant
 
   vars:
-    jenkins_version: "2.73.1"
+    jenkins_version: "lts-jdk11"
     jenkins_hostname: "jenkinsmain"
     jenkins_port: 8080
     jenkins_install_via: "docker"
     jenkins_jobs:
-      - "my-first-job"
-      - "another-awesome-job"
+      - "test_job_0001"
+    #   - "my-first-job"
+    #   - "another-awesome-job"
+
     jenkins_include_secrets: true
-    jenkins_include_custom_files: true
+    #jenkins_include_custom_files: true
     jenkins_custom_files:
       - src: "jenkins.plugins.openstack.compute.UserDataConfig.xml"
         dest: "jenkins.plugins.openstack.compute.UserDataConfig.xml"
     jenkins_plugins:
       - git
       - blueocean
-    jenkins_custom_plugins:
-      - "openstack-cloud-plugin/openstack-cloud.jpi"
+    # jenkins_custom_plugins:
+    #   - "openstack-cloud-plugin/openstack-cloud.jpi"
 
   roles:
     - emmetog.jenkins
