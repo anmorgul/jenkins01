@@ -17,13 +17,24 @@
     #   - "another-awesome-job"
 
     jenkins_include_secrets: true
+    jenkins_auth: "api"
+    jenkins_api_token: "11908dff2c60c73d3757fd31a974992ec2"
+    jenkins_api_username: "admin"
+#5. Create a backup of the file `$JENKINS_HOME/users/the_username/config.xml`
+
     #jenkins_include_custom_files: true
+    # jenkins_custom_files:
+    #   - src: "jenkins.plugins.openstack.compute.UserDataConfig.xml"
+    #     dest: "jenkins.plugins.openstack.compute.UserDataConfig.xml"
+    jenkins_include_custom_files: true
     jenkins_custom_files:
-      - src: "jenkins.plugins.openstack.compute.UserDataConfig.xml"
-        dest: "jenkins.plugins.openstack.compute.UserDataConfig.xml"
+      - src: "secrets/users/admin/config.xml"
+        dest: "users/admin/config.xml"
+
     jenkins_plugins:
       - git
       - blueocean
+      - strict-crumb-issuer
     # jenkins_custom_plugins:
     #   - "openstack-cloud-plugin/openstack-cloud.jpi"
 

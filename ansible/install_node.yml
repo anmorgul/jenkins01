@@ -30,5 +30,5 @@
     #   apt:
     #     name: npm
     #     state: present
-    - name: npm self-update
-      command: npm install npm@{{ NPM }} -g
+    # - name: npm self-update
+    #   command: npm install npm@{{ NPM }} -g
