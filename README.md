@@ -31,6 +31,12 @@ Detailed instructions are located in the Sandbox directory.
 python
 
 
+### Emulation repository
+
+In educational purposes, fork was created from a real working repository.
+Created 3 branches: FAKEMASTER FAKEDEV AND FAKEFEATURE to emulate real developers.
+In the local repository of the Master & DEV branches are redirected to monitor the parent repository, in order to merge possible real changes to Fake Branches.
+
 ### VCS
 add settings:
     "files.watcherExclude": {
