@@ -35,6 +35,9 @@
       - git
       - blueocean
       - strict-crumb-issuer
+      - postbuild-task
+      - postbuildscript
+      - throttle-concurrents
     # jenkins_custom_plugins:
     #   - "openstack-cloud-plugin/openstack-cloud.jpi"
 

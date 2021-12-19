@@ -21,7 +21,7 @@
 # we should put it into quiet mode immediately to avoid any jobs being
 # scheduled.
 - include_tasks: "start.yml"
-- include_tasks: "set-quiet-mode.yml"
+#- include_tasks: "set-quiet-mode.yml"
 
 - name: Install plugins with API token
   jenkins_plugin:
