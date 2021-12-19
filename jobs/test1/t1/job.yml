@@ -1,0 +1,32 @@
+- job:
+    name: upgrade_service
+    # node: main
+    concurrent: true
+    properties:
+      - throttle:
+          enabled: true
+          max-per-node: 1
+          max-total: 1
+          option: project
+    parameters:
+      - string:
+          name: ENVIRONMENT
+          default: 'production'
+          description: 'Environment to deploy to'
+    builders:
+      - shell: !include-raw: builder_pre.sh
+      - shell: !include-raw: builder_main.sh
+    publishers:
+      - postbuildscript:
+          mark-unstable-if-failed: true
+          builders:
+            - role: SLAVE
+              build-on:
+                - FAILURE
+              build-steps:
+                - shell: !include-raw: builder_fail.sh
+            - role: SLAVE
+              build-on:
+                - SUCCESS
+              build-steps:
+                - shell: !include-raw: builder_post.sh
