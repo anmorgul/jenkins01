@@ -1,7 +1,7 @@
-preinit: copy_ini install_job_builder
+preinit: install_job_builder
 
-copy_ini:
-	cp ./jenkins_jobs.ini /home/anmorgul/.config/jenkins_jobs/jenkins_jobs.ini
+#copy_ini:
+#	cp ./jenkins_jobs.ini /home/anmorgul/.config/jenkins_jobs/jenkins_jobs.ini
 
 install_job_builder:
 	(  source ../venv/bin/activate; \
