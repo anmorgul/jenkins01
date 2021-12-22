@@ -38,7 +38,7 @@
     parameters:
       - string:
           name: EXAMPLE_DIRECTORY
-          default: 'example1'
+          default: 'pre'
           description: 'Select the example directory in the repository to work on'
       - bool:
           name: DELETE_OLD

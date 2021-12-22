@@ -6,7 +6,7 @@ install_job_builder:
     )
 
 test:
-	jenkins-jobs test ./system_update_jenkins_jobs
+	jenkins-jobs test ./pre/system_update_jenkins_jobs
 
 update:
-	jenkins-jobs update --delete-old ./system_update_jenkins_jobs
+	jenkins-jobs update --delete-old ./pre/system_update_jenkins_jobs
