@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 preinit: install_req init
-init: generate_key adduser install_docker install_jenkins install_java install_node install_ngrok
+init: generate_key adduser install_docker install_jenkins install_java install_node install_ngrok copy_ini
 
 	   python3 -m venv ../venv; \
 
@@ -46,3 +46,9 @@ install_ngrok:
 	( source ../venv/bin/activate; \
 	  ansible-playbook install_ngrok.yml -v; \
     )
+
+copy_ini:
+	( source ../venv/bin/activate; \
+	  ansible-playbook init_jjb.yml -v; \
+    )
+# cp ./jenkins_jobs.ini /home/anmorgul/.config/jenkins_jobs/jenkins_jobs.ini
