@@ -5,7 +5,9 @@
 - name: Set quiet mode with API token
   uri:
     url: "{{ jenkins_url }}/quietDown"
+    #url: "http://127.0.0.1/quietDown"
     method: POST
+    follow_redirects: "no"
     headers:
       Content-Type: "text/xml"
     status_code: 200,302

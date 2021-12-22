@@ -1,7 +1,27 @@
 ---
 - include_tasks: "{{ jenkins_install_via }}/stop.yml"
 
-- name: Create intermediate dirs for custom files
+- name: Print container_result  from the previous task
+  ansible.builtin.debug:
+    var: jenkins_home
+    verbosity: 2
+
+- name: Print container_result  from the previous task
+  ansible.builtin.debug:
+    var: item
+    verbosity: 2
+  with_items: "{{ jenkins_custom_files }}"
+
+- name: Print container_result  from the previous task
+  ansible.builtin.debug:
+    msg: "{{ item.dest | dirname }} {{ item.dest }} {{ item.src }}" 
+    verbosity: 2
+  with_items: "{{ jenkins_custom_files }}"
+
+
+
+
+- name: Create intermediate dirs for custom files "{{ jenkins_home }}/{{ item.dest | dirname }}"
   file:
     path: "{{ jenkins_home }}/{{ item.dest | dirname }}"
     owner: "{{ jenkins_config_owner }}"

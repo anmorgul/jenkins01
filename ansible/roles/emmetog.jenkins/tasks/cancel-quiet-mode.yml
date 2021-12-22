@@ -1,7 +1,8 @@
 ---
 - name: Cancel quiet mode with API token
   uri:
-    url: "{{ jenkins_url }}/cancelQuietDown"
+    #url: "{{ jenkins_url }}/cancelQuietDown"
+    url: "http://127.0.0.1/quietDown"
     method: POST
     headers:
       Content-Type: "text/xml"
