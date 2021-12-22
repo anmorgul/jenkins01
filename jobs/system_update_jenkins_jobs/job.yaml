@@ -25,10 +25,9 @@
             after: false
           wipe-workspace: true
           timeout: 5
-
+#node: jenkins-nodes
 - job:
     name: system_update_jenkins_jobs
-    node: jenkins-nodes
     concurrent: true
     properties:
       - throttle:
