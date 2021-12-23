@@ -18,7 +18,7 @@
       - git:
           url: https://github.com/anmorgul/jenkins01.git
           branches:
-            - job_builder
+            - main
           basedir: jenkins-repository
           clean:
             before: true
