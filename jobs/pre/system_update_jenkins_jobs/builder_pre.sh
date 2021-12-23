@@ -5,7 +5,7 @@ set -e
 main() {
   echo "Initializing all clients for upgrading the environments"
 
-  virtualenv -p python3 "${WORKSPACE}/venv"
+  python3 -m venv "${WORKSPACE}/venv"
   source "${WORKSPACE}/venv/bin/activate"
   pip3 install jenkins-job-builder
 

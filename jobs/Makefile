@@ -6,7 +6,12 @@ install_job_builder:
     )
 
 test:
-	jenkins-jobs test ./pre/system_update_jenkins_jobs
+	(  source ../venv/bin/activate; \
+       jenkins-jobs test ./pre/system_update_jenkins_jobs; \
+    )
 
 update:
-	jenkins-jobs update --delete-old ./pre/system_update_jenkins_jobs
+	(  source ../venv/bin/activate; \
+       jenkins-jobs update ./pre/system_update_jenkins_jobs; \
+    )
+

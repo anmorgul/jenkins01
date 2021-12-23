@@ -42,7 +42,7 @@
           description: 'Select the example directory in the repository to work on'
       - bool:
           name: DELETE_OLD
-          default: false
+          default: true
           description: "Should we delete old unused or manually created jobs"
     triggers:
       - timed: '@hourly'
