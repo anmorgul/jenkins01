@@ -7,10 +7,14 @@
   remote_user: vagrant
 
   vars:
-    jenkins_version: "lts-jdk11"
+    jenkins_health_check_user: "admin"
+    jenkins_health_check_password: "Qwerty12345"
+    jenkins_version: "jenkins"
+    #jenkins_version: "lts-jdk11"
     jenkins_hostname: "jenkinsmain"
     jenkins_port: 8080
-    jenkins_install_via: "docker"
+    #jenkins_install_via: "docker"
+    jenkins_install_via: "apt"
     jenkins_jobs:
       - "test_job_0001"
     #   - "my-first-job"
@@ -30,10 +34,12 @@
     jenkins_custom_files:
       - src: "secrets/users/admin/config.xml"
         dest: "users/admin/config.xml"
+      - src: "secrets/credentials.xml"
+        dest: "credentials.xml"
 
     jenkins_plugins:
       #- git
-      - blueocean
+      #- blueocean
       - strict-crumb-issuer
       - postbuild-task
       - postbuildscript

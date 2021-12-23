@@ -26,15 +26,15 @@ install_docker:
 	  ansible-playbook install_docker.yml -v; \
     )
 
-install_jenkins:
-	( source ../venv/bin/activate; \
-	  ansible-playbook install_jenkins.yml -vv; \
-    )
-
 install_java:
 	( \
       source ../venv/bin/activate; \
 	  ansible-playbook install_java.yml; \
+    )
+
+install_jenkins:
+	( source ../venv/bin/activate; \
+	  ansible-playbook install_jenkins.yml -vvv; \
     )
 
 install_node:
@@ -44,7 +44,7 @@ install_node:
 
 install_ngrok:
 	( source ../venv/bin/activate; \
-	  ansible-playbook install_ngrok.yml -v; \
+	  ansible-playbook install_ngrok.yml -vvv; \
     )
 
 copy_ini:
