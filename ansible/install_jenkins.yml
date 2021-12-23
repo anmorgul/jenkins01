@@ -18,7 +18,7 @@
 
     jenkins_include_secrets: true
     jenkins_auth: "api"
-    jenkins_api_token: "11908dff2c60c73d3757fd31a974992ec2"
+    jenkins_api_token: "11c9a2ebf2ee5dc34c288ab61224d6698b"
     jenkins_api_username: "admin"
 #5. Create a backup of the file `$JENKINS_HOME/users/the_username/config.xml`
 
@@ -32,12 +32,125 @@
         dest: "users/admin/config.xml"
 
     jenkins_plugins:
-      - git
+      #- git
       - blueocean
       - strict-crumb-issuer
       - postbuild-task
       - postbuildscript
       - throttle-concurrents
+      #- strict-crumb-issuer
+      #
+      - ant
+      - apache-httpcomponents-client-4-api
+      - bootstrap4-api
+      - bootstrap5-api
+      - bouncycastle-api
+      - branch-api
+      - build-timeout
+      - caffeine-api
+      - checks-api
+      - command-launcher
+      - credentials-binding
+      - credentials
+      - display-url-api
+      - durable-task
+      - echarts-api
+      - email-ext
+      - cloudbees-folder
+      - font-awesome-api
+      - git-client
+      - git
+      - git-server
+      - github-api
+      - github-branch-source
+      - github
+      - gradle
+      - jackson2-api
+      - jjwt-api
+      - ace-editor
+      - handlebars
+      - momentjs
+      - jaxb
+      - jquery3-api
+      - jsch
+      - junit
+      - ldap
+      - lockable-resources
+      - mailer
+      - matrix-auth
+      - matrix-project
+      - okhttp-api
+      - jdk-tool
+      - antisamy-markup-formatter
+      - pam-auth
+      - workflow-aggregator
+      - pipeline-graph-analysis
+      - workflow-api
+      - workflow-basic-steps
+      - pipeline-build-step
+      - pipeline-model-definition
+      - pipeline-model-extensions
+      - pipeline-github-lib
+      - workflow-cps
+      - pipeline-input-step
+      - workflow-job
+      - pipeline-milestone-step
+      - pipeline-model-api
+      - workflow-multibranch
+      - workflow-durable-task-step
+      - pipeline-rest-api
+      - workflow-scm-step
+      - workflow-cps-global-lib
+      - pipeline-stage-step
+      - pipeline-stage-tags-metadata
+      - pipeline-stage-view
+      - workflow-step-api
+      - workflow-support
+      - plain-credentials
+      - plugin-util-api
+      - popper2-api
+      - popper-api
+      - resource-disposer
+      - scm-api
+      - script-security
+      - snakeyaml-api
+      - ssh-slaves
+      - ssh-credentials
+      - sshd
+      - structs
+      - timestamper
+      - token-macro
+      - trilead-api
+      - ws-cleanup
+      #
+
+
+
+
+
+
+
+
+# Folders
+# OWASP Markup Formatter
+# Build Timeout
+# Credentials Binding
+# Timestamper
+# Workspace Cleanup
+# Ant
+# Gradle
+# Pipeline
+# GitHub Branch Source
+# Pipeline: GitHub Groovy Libraries
+# Pipeline: Stage View
+# Git
+# SSH Build Agents
+# Matrix Authorization Strategy
+# PAM Authentication
+# LDAP
+# Email Extension
+# Mailer
+
     # jenkins_custom_plugins:
     #   - "openstack-cloud-plugin/openstack-cloud.jpi"
 

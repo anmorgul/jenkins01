@@ -13,6 +13,13 @@
       ansible.builtin.user:
         name: jenkins
         shell: /bin/bash
+        
+    # - name: Set authorized key taken from file
+    #   ansible.posix.authorized_key:
+    #     user: vagrant
+    #     state: present
+    #     key: "{{ lookup('file', '../.keys/jenkinsmain/id_rsa_jenkinsmain') }}"
+    #     #mode: 0644
 
 - name: Playbook for add user jenkinsnode for jenkinsnode
   gather_facts: true
