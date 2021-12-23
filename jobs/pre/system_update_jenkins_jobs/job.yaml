@@ -1,4 +1,3 @@
----
 - wrapper:
     name: jenkins-job-builder-credentials
     wrappers:
@@ -17,19 +16,18 @@
     name: jenkins-repository
     scm:
       - git:
-          url: https://github.com/unix-way-project/jenkins1.git
+          url: https://github.com/anmorgul/jenkins01.git
           branches:
-            - master
+            - job_builder
           basedir: jenkins-repository
           clean:
             before: true
             after: false
           wipe-workspace: true
           timeout: 5
-
+#node: jenkins-nodes
 - job:
     name: system_update_jenkins_jobs
-    node: jenkins-nodes
     concurrent: true
     properties:
       - throttle:
@@ -40,7 +38,7 @@
     parameters:
       - string:
           name: EXAMPLE_DIRECTORY
-          default: 'example1'
+          default: 'pre'
           description: 'Select the example directory in the repository to work on'
       - bool:
           name: DELETE_OLD
@@ -69,4 +67,3 @@
                 - SUCCESS
               build-steps:
                 - shell: !include-raw: builder_post.sh
-...

@@ -1,15 +1,12 @@
 preinit: install_job_builder
 
-#copy_ini:
-#	cp ./jenkins_jobs.ini /home/anmorgul/.config/jenkins_jobs/jenkins_jobs.ini
-
 install_job_builder:
 	(  source ../venv/bin/activate; \
        pip install jenkins-job-builder; \
     )
 
 test:
-	jenkins-jobs test .
+	jenkins-jobs test ./pre/system_update_jenkins_jobs
 
 update:
-	jenkins-jobs update .
+	jenkins-jobs update --delete-old ./pre/system_update_jenkins_jobs
