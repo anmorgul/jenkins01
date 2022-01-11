@@ -12,6 +12,7 @@ Vagrant.configure("2") do |config|
         :ip => ENV['JENKINSMAIN_IP'] || "192.168.1.70",
         :mem => ENV['JENKINSMAIN_MEMORY'] || "2048",
         :cpu => ENV['JENKINSMAIN_CPU'] || "2"
+
     },
     {
         :name => ENV['JENKINSNODE1_NAME'] || "jenkinsnode1",
@@ -24,6 +25,7 @@ Vagrant.configure("2") do |config|
         :ip => ENV['PROD_IP'] || "192.168.1.75",
         :mem => ENV['PROD_MEMORY'] || "2048",
         :cpu => ENV['PROD_CPU'] || "1"
+
     }
 ]
 

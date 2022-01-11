@@ -1,0 +1,17 @@
+---
+
+- name: Playbook for localtunnel installation
+  gather_facts: true
+  hosts: jenkins
+  become: true
+  remote_user: vagrant
+
+  vars_files:
+      - ../.keys/localtunnel/secrets.yml
+
+  # vars:
+
+  roles:
+    - localtunnel
+# http://anmorguljenkins.loca.lt
+...

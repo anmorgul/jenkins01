@@ -1,0 +1,6 @@
+---
+jenkins_version: "lts-jdk11"
+jenkins_hostname: "127.0.0.1"  # The hostname that Jenkins will be accessible on
+# The port that Jenkins will listen on for unsecured (HTTP) requests. 
+jenkins_port: "8080"
+...

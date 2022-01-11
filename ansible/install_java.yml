@@ -2,7 +2,7 @@
 
 - name: Playbook for java installation
   gather_facts: true
-  hosts: jenkins
+  hosts: jenkinsnode
   remote_user: vagrant
 
   tasks:

@@ -1,0 +1,52 @@
+multibranch_pipeline = ["configuration-as-code",]
+
+multibranch_pipeline.each { multibranch_pipeline ->
+    println "Create multibranch pipeline ${multibranch_pipeline}"
+    create_multibranch_pipeline(multibranch_pipeline)
+}
+
+def create_multibranch_pipeline(String name) {
+    multibranchPipelineJob(name) {
+        factory {
+            workflowBranchProjectFactory {
+                scriptPath('jenkins/Jenkinsfile')
+            }
+        }
+        description("multibranch_pipeline")
+        displayName("multibranch pipeline")
+        branchSources {
+            github {
+                // apiUri('https://github.com/')
+                id = name
+                // repositoryUrl("https://github.com/")
+                repoOwner("anmorgul")
+                repository("what-front")
+                includes('fake*')
+                // credentialsId('github_token')
+                // configuredByUrl(false)
+                scanCredentialsId('github_token')
+            }
+            // buildStrategies {
+            //     buildAllBranches {
+            //         strategies {
+            //             skipInitialBuildOnFirstBranchIndexing()
+            //         }
+            //     }
+            // }
+        }
+        configure { node ->
+            def webhookTrigger = node / triggers / 'com.igalg.jenkins.plugins.mswt.trigger.ComputedFolderWebHookTrigger' {
+                spec('')
+                token("{{ web_hook_token }}")
+            }
+        }
+        // triggers{
+        // }
+        orphanedItemStrategy {
+            discardOldItems {
+                numToKeep(20)
+            }
+        }
+    }
+}
+
