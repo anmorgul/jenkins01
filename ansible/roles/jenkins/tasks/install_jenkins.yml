@@ -1,0 +1,64 @@
+---
+- name: Create a directory if it does not exist
+  ansible.builtin.file:
+    path: "/home/vagrant/jenkinsdocker"
+    state: directory
+    mode: '0755'
+
+- name: copy Docker Compose files
+  copy:
+    src: files/{{ item }}
+    dest: /home/vagrant/jenkinsdocker/{{ item }}
+  loop:
+      - docker-compose.yml
+      - Dockerfile
+      - plugins.txt
+
+- name: copy Docker Compose files
+  copy:
+    src: ../.keys/jenkinsmain/id_rsa_jenkinsmain
+    dest: /home/vagrant/jenkinsdocker/d_rsa_jenkinsmain
+
+
+- name: copy Template jenkins-casc.yaml
+  template:
+    src: jenkins-casc.yaml.j2
+    dest: /home/vagrant/jenkinsdocker/jenkins-casc.yaml
+
+- name: copy Template seedjob_multipipeline.groovy
+  template:
+    src: seedjob_multipipeline.groovy.j2
+    dest: /home/vagrant/jenkinsdocker/seedjob_multipipeline.groovy
+      # - docker-compose.yml
+      # - Dockerfile
+      # - plugins.txt
+      # - seedjob_multipipeline.groovy  
+
+# - name: Run using a project directory
+#   # hosts: localhost
+#   gather_facts: no
+#   tasks:
+- name: Tear down existing services
+  community.docker.docker_compose:
+    project_src: /home/vagrant/jenkinsdocker
+    state: absent
+
+- name: Create and start services
+  community.docker.docker_compose:
+    project_src: /home/vagrant/jenkinsdocker
+    build: true
+  register: output
+
+- ansible.builtin.debug:
+    var: output
+
+
+
+# use files parameter to use multiple docker-compose.yml files
+# - name: deploy Docker Compose stack
+#   docker_compose:
+#     project_src: /somewhere/yourproject
+#     files:
+#     - docker-compose.yml
+#     - docker-compose.prod.yml
+...

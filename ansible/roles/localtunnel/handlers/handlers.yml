@@ -1,0 +1,10 @@
+---
+- name: reload systemd
+  ansible.builtin.systemd:
+    daemon_reload: yes
+
+- name: restart localtunnel
+  become: true
+  ansible.builtin.systemd:
+    name: localtunnel.service
+    state: restarted

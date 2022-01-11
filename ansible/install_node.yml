@@ -2,7 +2,7 @@
 
 - name: Playbook for node.js and npm installation
   gather_facts: true
-  hosts: jenkinsnode
+  hosts: node
   remote_user: vagrant
   become: true
   vars:

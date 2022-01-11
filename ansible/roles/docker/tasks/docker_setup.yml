@@ -7,8 +7,9 @@
         - curl
         - gnupg2
         - software-properties-common
+        - python3-pip
     state: present
-    update_cache: no
+    update_cache: yes
 
 - name: Add Docker GPG apt Key
   apt_key:
@@ -64,3 +65,9 @@
   when: >
     docker_compose_current_version.stdout is not defined
     or docker_compose_version not in docker_compose_current_version.stdout
+
+- name: pip docker Compose Install bottle while ensuring the umask is 0022 (to ensure other users can use it)
+  pip:
+    name: docker-compose
+    umask: "0022"
+  become: True

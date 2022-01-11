@@ -1,0 +1,45 @@
+---
+- name: Install localtunnel
+  npm:
+    name: "localtunnel"
+    global: "yes"
+    state: "present"
+    # executable: "/home/vagrant/.nvm/current/bin/npm"
+
+- name: copy Template files
+  become: true
+  template:
+    src: localtunnel.service.j2
+    dest: /etc/systemd/system/localtunnel.service
+  notify:
+    - reload systemd
+    - restart localtunnel
+
+- name: Flush handlers
+  meta: flush_handlers
+
+- name: Make sure a service unit is running
+  ansible.builtin.systemd:
+    state: started
+    name: localtunnel
+  register: result
+
+# - name: Launch localtunnel
+#   shell: nohup lt --port {{ localtunnel_port }} --subdomain {{ localtunnel_subdomain }} &
+#   register: container_result
+
+# - name: start localtunnel
+#   become: false
+#   ansible.builtin.shell: lt --port {{ localtunnel_port }} --subdomain {{ localtunnel_subdomain }}  > /dev/null &
+#   # -log=stdout > /dev/null 2>1 &
+#   #ngrok start --all -config /home/{{ ngrok_user }}/.ngrok2/ngrok.yml -log=stdout >/dev/null 2>1 &
+#   #ngrok start --all log ./log.log > /dev/null &
+#   # -log=stdout  > /dev/null &
+#   # args:
+#   #   chdir: "/home/{{ ngrok_user }}/.ngrok2/"
+#   register: result
+
+- name: Print container_result  from the previous task
+  ansible.builtin.debug:
+    var: result
+    verbosity: 2

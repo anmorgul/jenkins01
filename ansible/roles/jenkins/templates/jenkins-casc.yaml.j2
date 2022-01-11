@@ -1,0 +1,93 @@
+---
+credentials:
+  system:
+    domainCredentials:
+    - credentials:
+      - usernamePassword:
+          id: "github_token"
+          username: "{{ github_username }}"
+          password: "{{ github_token }}"
+          description: "Token for github"
+          # scope: SYSTEM 
+          scope: GLOBAL
+      - basicSSHUserPrivateKey:
+          id: jenkins_node_ssh_key
+          username: jenkinsnode
+          # passphrase: ${SSH_KEY_PASSWORD}
+          description: "SSH private key file."
+          privateKeySource:
+            directEntry:
+              privateKey: |
+                {{ lookup('file', '../.keys/jenkinsmain/id_rsa_jenkinsmain')  | indent(16) }}
+
+jenkins:
+  # agentProtocols,
+  authorizationStrategy:
+    # loggedInUsersCanDoAnything
+    globalMatrix:
+      permissions:
+        - "USER:Job/Build:dev"
+        - "USER:Job/Cancel:dev"
+        - "USER:Job/Read:dev"
+        - "USER:Job/Workspace:dev"
+        - "USER:Overall/Administer:admin"
+        - "USER:Overall/Read:authenticated"
+          #        - "GROUP:Run/Replay:authenticated"
+          #        - "Run/Update:authenticated"
+  # clouds
+  # crumbIssuer, 
+  # disableRememberMe
+  # disabledAdministrativeMonitors, 
+  # globalNodeProperties
+  # labelAtoms
+  # labelString, 
+  # markupFormatter
+  # mode
+  # myViewsTabBar, 
+  # noUsageStatistics
+  # nodeName
+  # nodeProperties
+  nodes:
+    - permanent:
+        labelString: nodejs
+        launcher:
+          ssh:
+            host: "192.168.1.71"
+            port: 22
+            credentialsId: "jenkins_node_ssh_key"
+            maxNumRetries: 10
+            retryWaitTime: 15
+            sshHostKeyVerificationStrategy: "NonVerifyingKeyVerificationStrategy"
+            tcpNoDelay: true
+        # mode
+        name: "Name-jenkinsnode1-agent"
+        nodeDescription: "jenkinsnode1 agent"
+        nodeName: "nodeName-jenkinsnode1-agent"
+        # nodeProperties
+        numExecutors: 2
+        remoteFS: "/home/jenkinsnode"
+        # retentionStrategy
+  numExecutors: 2 
+  # primaryView
+  # projectNamingStrategy
+  # proxy
+  # quietPeriod, 
+  # remotingSecurity
+  # scmCheckoutRetryCount,
+  securityRealm:
+    local:
+      allowsSignup: false
+      users:
+        - id: "admin"
+          password: "{{ admin }}"
+        - id: "dev"
+          password: "{{ dev }}"
+  # slaveAgentPort
+  # systemMessage
+  # updateCenter
+  # views
+  # viewsTabBar
+
+jobs:
+  - file: /usr/local/seedjob_multipipeline.groovy
+...
