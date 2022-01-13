@@ -5,6 +5,7 @@
   hosts: node
   remote_user: vagrant
   become: true
+  serial: 3
   vars:
     NODEJS_VERSION: "16"
     # ansible_distribution_release: "Focal"

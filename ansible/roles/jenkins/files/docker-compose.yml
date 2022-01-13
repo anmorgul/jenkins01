@@ -12,6 +12,7 @@ services:
     restart: always
     volumes:
       - jenkins-home:/var/jenkins_home
+      - /home/vagrant/jenkinsdocker/sonar-scanner:/var/jenkins_home/sonar-scanner
 volumes:
   jenkins-home:
 ...

@@ -11,3 +11,5 @@ ssh-slaves
 ssh-agent
 
 multibranch-scan-webhook-trigger
+
+sonar

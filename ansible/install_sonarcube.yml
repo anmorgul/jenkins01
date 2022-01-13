@@ -1,0 +1,17 @@
+---
+
+- name: Playbook for sonarcube installation
+  gather_facts: true
+  hosts: sonarqube
+  become: true
+  remote_user: vagrant
+
+  vars_files:
+      - ../.keys/sonarcube/secrets.yml
+
+  # vars:
+
+  roles:
+    - sonarcube
+# http://anmorguljenkins.loca.lt
+...

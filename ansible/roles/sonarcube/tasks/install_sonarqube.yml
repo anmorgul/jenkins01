@@ -1,0 +1,48 @@
+---
+- name: Create a directory sonarqube if it does not exist
+  ansible.builtin.file:
+    path: '/home/vagrant/sonarqube/sonar/conf'
+    state: directory
+    mode: '0755'
+
+- name: Create a directory sonarqube if it does not exist
+  ansible.builtin.file:
+    path: '/home/vagrant/sonarqube/sonar/conf'
+    state: directory
+    mode: '0755'
+
+- name: Create a directory sonarqube if it does not exist
+  ansible.builtin.file:
+    path: '/home/vagrant/sonarqube/sonar/extensions'
+    state: directory
+    mode: '0755'
+
+- name: Create a directory sonarqube if it does not exist
+  ansible.builtin.file:
+    path: '/home/vagrant/sonarqube/sonar/bundled-plugins'
+    state: directory
+    mode: '0755'
+
+- name: copy Template docker-compose.yml
+  template:
+    src: docker-compose.yml.j2
+    dest: /home/vagrant/sonarqube/docker-compose.yml
+
+- name: Tear down existing services
+  community.docker.docker_compose:
+    project_src: /home/vagrant/sonarqube
+    state: absent
+
+- name: Create and start services
+  community.docker.docker_compose:
+    project_src: /home/vagrant/sonarqube
+    build: true
+  register: output
+
+- ansible.builtin.debug:
+    var: output
+
+#url: ${SONAR_URL}/web_api/api/users
+#curl -u admin:admin -X POST "http://localhost:9000/api/users/change_password?login=admin&previousPassword=admin&password=XXXXXXXXX"
+
+...

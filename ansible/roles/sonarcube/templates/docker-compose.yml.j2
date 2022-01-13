@@ -1,0 +1,18 @@
+version: '3.9'
+services:
+  sonarqube:
+    image:  docker pull sonarqube:9.2.4-community 
+    # sonarqube:lts-community
+    container_name: sonar
+    restart: always
+    environment:
+      - SONARQUBE_JDBC_USERNAME={{ SONARQUBE_JDBC_USERNAME }}
+      - SONARQUBE_JDBC_PASSWORD={{ SONARQUBE_JDBC_PASSWORD }}
+    ports:
+      - "9000:9000"
+      - "9092:9092"
+    volumes:
+      - './sonar/conf:/opt/sonarqube/conf'
+      - './sonar/data:/opt/sonarqube/data'
+      - './sonar/extensions:/opt/sonarqube/extensions'
+      - './sonar/bundled-plugins:/opt/sonarqube/lib/bundled-plugins'

@@ -19,7 +19,11 @@ credentials:
             directEntry:
               privateKey: |
                 {{ lookup('file', '../.keys/jenkinsmain/id_rsa_jenkinsmain')  | indent(16) }}
-
+      - string:
+          description: "sonartoken"
+          id: "sonartoken"
+          scope: GLOBAL
+          secret: "{{ SONARQUBE_TOKEN }}"
 jenkins:
   # agentProtocols,
   authorizationStrategy:
@@ -41,9 +45,9 @@ jenkins:
   # globalNodeProperties
   # labelAtoms
   # labelString, 
-  # markupFormatter
-  # mode
-  # myViewsTabBar, 
+  markupFormatter: "plainText"
+  mode: NORMAL
+  myViewsTabBar: "standard"
   # noUsageStatistics
   # nodeName
   # nodeProperties
@@ -68,10 +72,12 @@ jenkins:
         remoteFS: "/home/jenkinsnode"
         # retentionStrategy
   numExecutors: 2 
-  # primaryView
-  # projectNamingStrategy
+  primaryView:
+    all:
+      name: "all"
+  projectNamingStrategy: "standard"
   # proxy
-  # quietPeriod, 
+  quietPeriod: 5
   # remotingSecurity
   # scmCheckoutRetryCount,
   securityRealm:
@@ -80,14 +86,52 @@ jenkins:
       users:
         - id: "admin"
           password: "{{ admin }}"
+#          properties:
+#            - timezone:
+#              timeZoneName: "Europe/Kiev"
         - id: "dev"
           password: "{{ dev }}"
-  # slaveAgentPort
+  slaveAgentPort: 50000
   # systemMessage
-  # updateCenter
-  # views
-  # viewsTabBar
-
+  updateCenter:
+    sites:
+    - id: "default"
+      url: "https://updates.jenkins.io/update-center.json"
+  views:
+  - all:
+      name: "all"
+  viewsTabBar: "standard"
+unclassified:
+  sonarGlobalConfiguration:
+    buildWrapperEnabled: false
+    installations:
+    - credentialsId: "sonartoken"
+      name: "SonarQube9000"
+      serverUrl: "{{ SONARQUBE_URL }}"
+      triggers:
+        skipScmCause: false
+        skipUpstreamCause: false
+#  timestamper:
+#    allPipelines: false
+#    elapsedTimeFormat: "'<b>'HH:mm:ss.S'</b> '"
+#    systemTimeFormat: "'<b>'HH:mm:ss'</b> '"
+tool:
+  git:
+    installations:
+    - home: "git"
+      name: "Default"
+  mavenGlobalConfig:
+    globalSettingsProvider: "standard"
+    settingsProvider: "standard"
+  sonarRunnerInstallation:
+    installations:
+    - name: "SonarQubeScannerName"
+      properties:
+      - installSource:
+          installers:
+          - zip:
+              label: "built-in"
+              url: "https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472.zip"
 jobs:
   - file: /usr/local/seedjob_multipipeline.groovy
 ...

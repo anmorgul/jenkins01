@@ -4,6 +4,7 @@
   gather_facts: true
   hosts: jenkinsnode
   remote_user: vagrant
+  serial: 3
 
   tasks:
     - name: Install java

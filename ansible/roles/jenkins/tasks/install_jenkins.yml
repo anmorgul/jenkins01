@@ -5,7 +5,7 @@
     state: directory
     mode: '0755'
 
-- name: copy Docker Compose files
+- name: copy files
   copy:
     src: files/{{ item }}
     dest: /home/vagrant/jenkinsdocker/{{ item }}
@@ -14,11 +14,10 @@
       - Dockerfile
       - plugins.txt
 
-- name: copy Docker Compose files
-  copy:
-    src: ../.keys/jenkinsmain/id_rsa_jenkinsmain
-    dest: /home/vagrant/jenkinsdocker/d_rsa_jenkinsmain
-
+- name: Copy sonar-scanner
+  ansible.builtin.copy:
+    src: files/sonar-scanner-4.6.2.2472/
+    dest: /home/vagrant/jenkinsdocker/sonar-scanner/
 
 - name: copy Template jenkins-casc.yaml
   template:

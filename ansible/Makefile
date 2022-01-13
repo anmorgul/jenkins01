@@ -46,3 +46,8 @@ install_localtunnel:
 	( source ../venv/bin/activate; \
 	  ansible-playbook install_localtunnel.yml -vv; \
     )
+
+install_sonarcube:
+	( source ../venv/bin/activate; \
+	  ansible-playbook install_sonarcube.yml -vv; \
+    )
