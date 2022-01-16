@@ -1,0 +1,67 @@
+---
+# curl -u admin:admin -X POST "http://localhost:9000/api/users/change_password?login=admin&previousPassword=admin&password=adminSonarPassword"
+- name: Change default admin password
+  # no_log: true
+  uri:
+    url: "{{sonar_url}}/api/users/change_password?login={{sonar_user}}&previousPassword=admin&password={{sonar_user_password}}"
+    user: "{{sonar_user}}"
+    password: admin
+    force_basic_auth: yes
+    return_content: yes
+    method: POST
+    status_code: 204
+    body_format: json
+  ignore_errors: True
+
+- name: Get user admin tokens list
+  no_log: true
+  uri:
+    url: "{{sonar_url}}/api/user_tokens/search"
+    user: "{{sonar_user}}"
+    password: "{{sonar_user_password}}"
+    force_basic_auth: yes
+    return_content: yes
+    method: GET
+    # status_code: 204
+  register: user_tokens_names
+
+- name: output
+  debug:
+    msg: "{{ user_tokens_names.json.userTokens }}"
+
+- name: init fact
+  set_fact:
+    is_admin_token_name_not_exist: True
+
+- name: Chech is token exist
+  set_fact:
+    is_admin_token_name_not_exist: False
+  when: item.name == sonar_user_token_name
+  with_items: "{{user_tokens_names.json.userTokens}}"
+
+- name: output2
+  debug:
+    msg: "is_admin_token_name_not_exist: {{is_admin_token_name_not_exist}}"
+
+- name: Create user admin token
+  # no_log: true
+  uri:
+    url: "{{sonar_url}}/api/user_tokens/generate?name={{sonar_user_token_name}}"
+    user: "{{sonar_user}}"
+    password: "{{sonar_user_password}}"
+    force_basic_auth: yes
+    return_content: yes
+    method: POST
+    # status_code: 204
+  register: output
+  when: is_admin_token_name_not_exist
+  # ignore_errors: True
+
+- local_action: 
+    module: copy 
+    content: "---\nSONARQUBE_TOKEN: {{ output.json.token }}\n..."
+    dest: "{{playbook_dir}}/.keys/sonarqube/.sonarqube_token.yml"
+  # ignore_errors: True
+  when: is_admin_token_name_not_exist
+
+...

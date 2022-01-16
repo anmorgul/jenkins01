@@ -1,3 +1,6 @@
 ---
 - include: "install_sonarqube.yml"
+- include: "config_user.yml"
+- include: "set_webhook.yml"
+- include: "create_project.yml"
 ...

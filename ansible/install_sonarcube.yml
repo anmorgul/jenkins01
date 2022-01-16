@@ -7,7 +7,8 @@
   remote_user: vagrant
 
   vars_files:
-      - ../.keys/sonarcube/secrets.yml
+      - ./.keys/sonarqube/secrets.yml
+      - ./.keys/sonarqube/project_name.yml
 
   # vars:
 

@@ -1,11 +1,11 @@
 ---
-
 - name: Playbook for docker and docker-compose installation
   gather_facts: true
   hosts: docker
   remote_user: vagrant
   become: true
-  serial: 4
+  serial: 7
 
   roles:
     - docker
+...

@@ -5,7 +5,7 @@
   hosts: node
   remote_user: vagrant
   become: true
-  serial: 3
+  serial: 5
   vars:
     NODEJS_VERSION: "16"
     # ansible_distribution_release: "Focal"
@@ -33,3 +33,4 @@
     #     state: present
     # - name: npm self-update
     #   command: npm install npm@{{ NPM }} -g
+...

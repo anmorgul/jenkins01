@@ -1,5 +1,5 @@
 preinit: install_plugins vagrant_up
-init: vagrant_up
+init: up
 
 install_plugins:
 	vagrant plugin install vagrant-hostsupdater
@@ -9,9 +9,9 @@ up:
 	vagrant up
 
 halt:
-	vagrant halt jenkinsmain jenkinsnode1 
+	vagrant halt jenkinsmain jenkinsnode1 sonarqube prod dev
 #jenkinsnode2
 
 destroy:
-	vagrant destroy jenkinsmain jenkinsnode1 
+	vagrant destroy jenkinsmain jenkinsnode1 sonarqube prod dev
 #jenkinsnode2

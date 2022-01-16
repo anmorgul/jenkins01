@@ -11,7 +11,7 @@ Vagrant.configure("2") do |config|
         :name => ENV['JENKINSMAIN_NAME'] || "jenkinsmain",
         :ip => ENV['JENKINSMAIN_IP'] || "192.168.1.70",
         :mem => ENV['JENKINSMAIN_MEMORY'] || "2048",
-        :cpu => ENV['JENKINSMAIN_CPU'] || "2"
+        :cpu => ENV['JENKINSMAIN_CPU'] || "4"
     },
     {
         :name => ENV['JENKINSNODE1_NAME'] || "jenkinsnode1",
@@ -23,13 +23,19 @@ Vagrant.configure("2") do |config|
         :name => ENV['SONARQUBE_NAME'] || "sonarqube",
         :ip => ENV['SONARQUBE_IP'] || "192.168.1.74",
         :mem => ENV['SONARQUBE_MEMORY'] || "2048",
-        :cpu => ENV['SONARQUBE_CPU'] || "2"
+        :cpu => ENV['SONARQUBE_CPU'] || "4"
     },
     {
         :name => ENV['PROD_NAME'] || "prod",
         :ip => ENV['PROD_IP'] || "192.168.1.75",
-        :mem => ENV['PROD_MEMORY'] || "2048",
-        :cpu => ENV['PROD_CPU'] || "1"
+        :mem => ENV['PROD_MEMORY'] || "1024",
+        :cpu => ENV['PROD_CPU'] || "2"
+    },
+    {
+      :name => ENV['DEV_NAME'] || "dev",
+      :ip => ENV['DEV_IP'] || "192.168.1.76",
+      :mem => ENV['DEV_MEMORY'] || "1024",
+      :cpu => ENV['DEV_CPU'] || "2"
     }
 ]
 

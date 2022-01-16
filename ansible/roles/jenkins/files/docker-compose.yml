@@ -6,13 +6,15 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    environment:
+      - JAVA_OPTS=-Duser.timezone=Europe/Kiev
     ports:
       - "8080:8080"
       - "50000:50000"
     restart: always
     volumes:
       - jenkins-home:/var/jenkins_home
-      - /home/vagrant/jenkinsdocker/sonar-scanner:/var/jenkins_home/sonar-scanner
+      # - /home/vagrant/jenkinsdocker/sonar-scanner:/var/jenkins_home/sonar-scanner
 volumes:
   jenkins-home:
 ...

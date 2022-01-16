@@ -7,7 +7,7 @@
 
 - name: Create a directory sonarqube if it does not exist
   ansible.builtin.file:
-    path: '/home/vagrant/sonarqube/sonar/conf'
+    path: '/home/vagrant/sonarqube/sonar/data'
     state: directory
     mode: '0755'
 
@@ -20,6 +20,12 @@
 - name: Create a directory sonarqube if it does not exist
   ansible.builtin.file:
     path: '/home/vagrant/sonarqube/sonar/bundled-plugins'
+    state: directory
+    mode: '0755'
+
+- name: Create a directory logs if it does not exist
+  ansible.builtin.file:
+    path: '/home/vagrant/sonarqube/sonar/logs'
     state: directory
     mode: '0755'
 
@@ -39,10 +45,20 @@
     build: true
   register: output
 
-- ansible.builtin.debug:
-    var: output
+- name: Sleep for 120 seconds and continue with play
+  wait_for:
+    timeout: 120
+  delegate_to: localhost
 
-#url: ${SONAR_URL}/web_api/api/users
-#curl -u admin:admin -X POST "http://localhost:9000/api/users/change_password?login=admin&previousPassword=admin&password=XXXXXXXXX"
-
+- name: check sonar web is up
+  uri:
+    url: "{{sonar_url}}/sonar/api/system/status"
+    method: GET
+    return_content: yes
+    status_code: 200
+    body_format: json
+  register: result
+  until: result.status == 200
+  retries: 10
+  delay: 30
 ...

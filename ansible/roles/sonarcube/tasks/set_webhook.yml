@@ -1,0 +1,44 @@
+---
+- name: Get  webhooks list
+  # no_log: true
+  uri:
+    url: "{{sonar_url}}/api/webhooks/list"
+    user: "{{sonar_user}}"
+    password: "{{sonar_user_password}}"
+    force_basic_auth: yes
+    return_content: yes
+    method: GET
+    # status_code: 204
+  register: webhooks
+
+- name: output webhooks
+  debug:
+    msg: "{{ webhooks.json.webhooks }}"
+
+- name: init fact
+  set_fact:
+    is_webhook_not_exist: True
+
+- name: Check jenkins webhook exist
+  set_fact:
+    is_webhook_not_exist: False
+  when: item.name == webhook_name
+  with_items: "{{webhooks.json.webhooks}}"
+
+- name: output2
+  debug:
+    msg: "is_webhook_not_exist: {{is_webhook_not_exist}}"
+
+- name: Create jenkins webhook token
+  # no_log: true
+  uri:
+    url: "{{sonar_url}}/api/webhooks/create?name={{webhook_name}}&url={{jenkins_url}}/sonarqube-webhook/"
+    user: "{{sonar_user}}"
+    password: "{{sonar_user_password}}"
+    force_basic_auth: yes
+    return_content: yes
+    method: POST
+    # status_code: 204
+  register: output
+  when: is_webhook_not_exist
+...

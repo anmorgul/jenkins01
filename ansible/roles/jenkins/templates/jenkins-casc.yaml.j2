@@ -5,11 +5,16 @@ credentials:
     - credentials:
       - usernamePassword:
           id: "github_token"
-          username: "{{ github_username }}"
-          password: "{{ github_token }}"
+          username: "{{ GITHUB_USERNAME }}"
+          password: "{{ GITHUB_TOKEN }}"
           description: "Token for github"
           # scope: SYSTEM 
           scope: GLOBAL
+      - string:
+          description: "sonartoken"
+          id: "sonartoken"
+          scope: GLOBAL
+          secret: "{{ project_name }}"
       - basicSSHUserPrivateKey:
           id: jenkins_node_ssh_key
           username: jenkinsnode
@@ -56,7 +61,7 @@ jenkins:
         labelString: nodejs
         launcher:
           ssh:
-            host: "192.168.1.71"
+            host: "{{JENKINS_NODE1_IP}}"
             port: 22
             credentialsId: "jenkins_node_ssh_key"
             maxNumRetries: 10
@@ -85,12 +90,12 @@ jenkins:
       allowsSignup: false
       users:
         - id: "admin"
-          password: "{{ admin }}"
+          password: "{{ ADMIN_PASS }}"
 #          properties:
 #            - timezone:
 #              timeZoneName: "Europe/Kiev"
         - id: "dev"
-          password: "{{ dev }}"
+          password: "{{ DEV_PASS }}"
   slaveAgentPort: 50000
   # systemMessage
   updateCenter:
@@ -102,6 +107,8 @@ jenkins:
       name: "all"
   viewsTabBar: "standard"
 unclassified:
+  gitHubPluginConfig:
+    hookUrl: "{{JENKINS_MAIN_URL}}/{{GITHUB_HOOK_NAME}}/"
   sonarGlobalConfiguration:
     buildWrapperEnabled: false
     installations:
@@ -125,13 +132,12 @@ tool:
     settingsProvider: "standard"
   sonarRunnerInstallation:
     installations:
-    - name: "SonarQubeScannerName"
+    - name: "SonarQubeScannerMaven"
       properties:
       - installSource:
           installers:
-          - zip:
-              label: "built-in"
-              url: "https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472.zip"
+          - sonarRunnerInstaller:
+              id: "4.6.2.2472"
 jobs:
   - file: /usr/local/seedjob_multipipeline.groovy
 ...

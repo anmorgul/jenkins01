@@ -1,3 +1,4 @@
 ---
+- include: "copy_files.yml"
 - include: "install_jenkins.yml"
 ...

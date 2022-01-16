@@ -20,13 +20,13 @@
     #     comment: jenkinsnode
     - name: Create a directory if it does not exist
       ansible.builtin.file:
-        path: "../.keys/jenkinsmain"
+        path: ".keys/jenkinsmain"
         state: directory
         mode: '0755'
 
     - name: generate SSH key "{{ssh_key_jenkinsmain_file}}"
       openssh_keypair:
-        path: "../.keys/jenkinsmain/{{ssh_key_jenkinsmain_file}}"
+        path: "./.keys/jenkinsmain/{{ssh_key_jenkinsmain_file}}"
         type: rsa
         size: 4096
         state: present

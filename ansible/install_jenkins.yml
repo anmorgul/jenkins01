@@ -7,10 +7,10 @@
   remote_user: vagrant
 
   vars_files:
-      - ../.keys/jenkinsmain/secrets.yml
+      - ./.keys/jenkinsmain/secrets.yml
+      - ./.keys/sonarqube/.sonarqube_token.yml
+      - ./.keys/sonarqube/project_name.yml
   vars:
-    jenkins_health_check_user: "admin"
-    jenkins_health_check_password: "Qwerty12345"
     jenkins_version: "jenkins"
     #jenkins_version: "lts-jdk11"
     jenkins_hostname: "jenkinsmain"
@@ -19,3 +19,4 @@
 
   roles:
     - jenkins
+...

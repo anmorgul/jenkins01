@@ -37,7 +37,7 @@ def create_multibranch_pipeline(String name) {
         configure { node ->
             def webhookTrigger = node / triggers / 'com.igalg.jenkins.plugins.mswt.trigger.ComputedFolderWebHookTrigger' {
                 spec('')
-                token("{{ web_hook_token }}")
+                token("{{ GITHUB_WEBHOOK_TOKEN }}")
             }
         }
         // triggers{

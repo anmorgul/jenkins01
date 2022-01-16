@@ -1,0 +1,25 @@
+---
+- name: Check project exist
+  # no_log: true
+  uri:
+    url: "{{sonar_url}}/api/projects/search?projects={{project_name_key}}"
+    user: "{{sonar_user}}"
+    password: "{{sonar_user_password}}"
+    force_basic_auth: yes
+    return_content: yes
+    method: GET
+    # status_code: 204
+  register: project
+
+- name: Create project
+  # no_log: true
+  uri:
+    url: "{{sonar_url}}/api/projects/create?name={{project_name}}&project={{project_name_key}}"
+    user: "{{sonar_user}}"
+    password: "{{sonar_user_password}}"
+    force_basic_auth: yes
+    return_content: yes
+    method: POST
+    # status_code: 204
+  when: project.json.paging.total == 0
+...

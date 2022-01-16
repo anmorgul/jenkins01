@@ -37,4 +37,5 @@
       ansible.posix.authorized_key:
         user: jenkinsnode
         state: present
-        key: "{{ lookup('file', '../.keys/jenkinsmain/id_rsa_jenkinsmain.pub') }}"
+        key: "{{ lookup('file', './.keys/jenkinsmain/id_rsa_jenkinsmain.pub') }}"
+...

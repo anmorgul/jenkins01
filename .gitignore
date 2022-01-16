@@ -3,3 +3,4 @@
 venv
 .keys
 .github
+sonar_tmp/sonar

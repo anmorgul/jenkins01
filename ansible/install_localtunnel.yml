@@ -7,7 +7,7 @@
   remote_user: vagrant
 
   vars_files:
-      - ../.keys/localtunnel/secrets.yml
+      - ./.keys/localtunnel/secrets.yml
 
   # vars:
 
