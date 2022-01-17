@@ -122,6 +122,11 @@ unclassified:
 #    allPipelines: false
 #    elapsedTimeFormat: "'<b>'HH:mm:ss.S'</b> '"
 #    systemTimeFormat: "'<b>'HH:mm:ss'</b> '"
+  telegramBotGlobalConfiguration:
+    approvalType: ALL
+    botName: "{{ telegram_bot_name }}"
+    botToken: "{{ telegram_bot_token }}"
+    shouldLogToConsole: false
 tool:
   git:
     installations:

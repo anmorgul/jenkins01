@@ -10,6 +10,7 @@
       - ./.keys/jenkinsmain/secrets.yml
       - ./.keys/sonarqube/.sonarqube_token.yml
       - ./.keys/sonarqube/project_name.yml
+      - ./.keys/jenkinsmain/telegram.yml
   vars:
     jenkins_version: "jenkins"
     #jenkins_version: "lts-jdk11"

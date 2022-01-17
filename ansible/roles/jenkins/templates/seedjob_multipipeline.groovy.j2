@@ -44,9 +44,9 @@ def create_multibranch_pipeline(String name) {
                 token("{{ GITHUB_WEBHOOK_TOKEN }}")
             }
         }
-        configure { node ->
-            def setdisabled = node / disabled  (true)
-        }
+ //       configure { node ->
+ //           def setdisabled = node / disabled  (true)
+ //       }
         // triggers{
         // }
         orphanedItemStrategy {
