@@ -1,8 +1,11 @@
 SHELL := /bin/bash
 preinit: install_req init
-init: generate_key adduser install_docker install_java install_node install_sonarcube install_jenkins install_localtunnel
+init: install
 
-	   python3 -m venv ../venv; \
+install:
+	(  source ../venv/bin/activate; \
+	   ansible-playbook install_all.yml; \
+    )
 
 install_req:
 	(  python3 -m venv ../venv; \
@@ -45,7 +48,7 @@ install_sonarcube:
 
 install_jenkins:
 	( source ../venv/bin/activate; \
-	  ansible-playbook install_jenkins.yml; \
+	  ansible-playbook install_jenkins.yml -vvv; \
     )
 
 install_localtunnel:

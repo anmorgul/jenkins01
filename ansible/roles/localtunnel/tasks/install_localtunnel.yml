@@ -22,6 +22,7 @@
   ansible.builtin.systemd:
     state: started
     name: localtunnel
+    enabled: yes
   register: result
 
 # - name: Launch localtunnel

@@ -5,19 +5,19 @@
     state: directory
     mode: '0755'
 
-- name: Create a directory sonarqube if it does not exist
+- name: Create a directory data if it does not exist
   ansible.builtin.file:
     path: '/home/vagrant/sonarqube/sonar/data'
     state: directory
     mode: '0755'
 
-- name: Create a directory sonarqube if it does not exist
+- name: Create a directory extensions if it does not exist
   ansible.builtin.file:
     path: '/home/vagrant/sonarqube/sonar/extensions'
     state: directory
     mode: '0755'
 
-- name: Create a directory sonarqube if it does not exist
+- name: Create a directory bundled-plugins if it does not exist
   ansible.builtin.file:
     path: '/home/vagrant/sonarqube/sonar/bundled-plugins'
     state: directory
@@ -29,10 +29,21 @@
     state: directory
     mode: '0755'
 
+- name: Create a directory temp if it does not exist
+  ansible.builtin.file:
+    path: '/home/vagrant/sonarqube/sonar/temp'
+    state: directory
+    mode: '0755'
+
 - name: copy Template docker-compose.yml
   template:
     src: docker-compose.yml.j2
     dest: /home/vagrant/sonarqube/docker-compose.yml
+
+- ansible.posix.sysctl:
+    name: vm.max_map_count
+    value: '262144'
+    sysctl_set: yes
 
 - name: Tear down existing services
   community.docker.docker_compose:

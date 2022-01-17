@@ -1,0 +1,11 @@
+---
+- import_playbook: remove_snapd.yml
+- import_playbook: generate_ssh.yml
+- import_playbook: adduser.yml
+- import_playbook: install_docker.yml
+- import_playbook: install_java.yml
+- import_playbook: install_node.yml
+- import_playbook: install_sonarcube.yml
+- import_playbook: install_jenkins.yml
+- import_playbook: install_localtunnel.yml
+...

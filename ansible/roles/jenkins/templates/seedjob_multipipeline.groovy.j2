@@ -7,6 +7,9 @@ multibranch_pipeline.each { multibranch_pipeline ->
 
 def create_multibranch_pipeline(String name) {
     multibranchPipelineJob(name) {
+        properties  {
+            // disable(True)
+        }
         factory {
             workflowBranchProjectFactory {
                 scriptPath('jenkins/Jenkinsfile')
@@ -14,6 +17,7 @@ def create_multibranch_pipeline(String name) {
         }
         description("multibranch_pipeline")
         displayName("multibranch pipeline")
+        //disabled(True)
         branchSources {
             github {
                 // apiUri('https://github.com/')
@@ -39,6 +43,9 @@ def create_multibranch_pipeline(String name) {
                 spec('')
                 token("{{ GITHUB_WEBHOOK_TOKEN }}")
             }
+        }
+        configure { node ->
+            def setdisabled = node / disabled  (true)
         }
         // triggers{
         // }
