@@ -21,3 +21,4 @@ resolvelib==0.5.4
 six==1.16.0
 stevedore==3.5.0
 urllib3==1.26.7
+jmespath

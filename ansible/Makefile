@@ -12,9 +12,12 @@ install_req:
 	   source ../venv/bin/activate; \
 	   python3 -m pip install --upgrade pip; \
        pip install -r ../requirements.txt; \
+    )
+uninstall__snapd:
+		(  python3 -m venv ../venv; \
+	   source ../venv/bin/activate; \
 	   ansible-playbook remove_snapd.yml \
     )
-
 generate_key:
 	(  source ../venv/bin/activate; \
 	   ansible-playbook generate_ssh.yml; \
@@ -46,6 +49,11 @@ install_sonarcube:
 	  ansible-playbook install_sonarcube.yml; \
     )
 
+install_nexus:
+	( source ../venv/bin/activate; \
+	  ansible-playbook install_nexus.yml -vvv; \
+    )
+
 install_jenkins:
 	( source ../venv/bin/activate; \
 	  ansible-playbook install_jenkins.yml -vvv; \
@@ -56,3 +64,7 @@ install_localtunnel:
 	  ansible-playbook install_localtunnel.yml; \
     )
 
+nexustmp:
+	( source ../venv/bin/activate; \
+	  ansible-playbook nexus_tmp.yml -vv; \
+    )

@@ -1,0 +1,17 @@
+---
+
+- name: Playbook for nexus installation
+  gather_facts: true
+  hosts: nexus
+  become: true
+  remote_user: vagrant
+
+  vars_files:
+      - ./.keys/nexus/secrets.yml
+
+  # vars:
+
+  roles:
+    - nexus
+# http://anmorguljenkins.loca.lt
+...

@@ -2,7 +2,7 @@
 
 - name: Playbook for remove snapd
   gather_facts: true
-  hosts: all
+  hosts: vagrants
   serial: 7
   remote_user: vagrant
   become: true
@@ -22,4 +22,4 @@
         - /snap
         - /var/snap
         - /var/lib/snapd
-        - /home/bwenrich/snap
+        # - /home/bwenrich/snap

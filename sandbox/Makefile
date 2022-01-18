@@ -9,9 +9,9 @@ up:
 	vagrant up
 
 halt:
-	vagrant halt jenkinsmain jenkinsnode1 sonarqube prod dev
+	vagrant halt jenkinsmain jenkinsnode1 sonarqube prod dev nexus
 #jenkinsnode2
 
 destroy:
-	vagrant destroy jenkinsmain jenkinsnode1 sonarqube prod dev
+	vagrant destroy jenkinsmain jenkinsnode1 sonarqube prod dev nexus
 #jenkinsnode2
