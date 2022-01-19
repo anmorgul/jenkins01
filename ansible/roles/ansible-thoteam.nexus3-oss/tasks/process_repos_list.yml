@@ -139,6 +139,7 @@
             (nexus_repos_pypi_group | map('combine', {"format": "pypi", "type": "group"}) | list)
           }}
 
+
 - name: Process definitions for raw repositories
   when: nexus_config_raw | bool
   block:

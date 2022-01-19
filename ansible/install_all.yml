@@ -7,6 +7,7 @@
 - import_playbook: install_node.yml
 - import_playbook: install_sonarcube.yml
 - import_playbook: install_nexus.yml
+# - import_playbook: nexus_tmp.yml
 - import_playbook: install_jenkins.yml
 - import_playbook: install_localtunnel.yml
 ...

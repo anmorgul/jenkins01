@@ -8,7 +8,6 @@ credentials:
           username: "{{ GITHUB_USERNAME }}"
           password: "{{ GITHUB_TOKEN }}"
           description: "Token for github"
-          # scope: SYSTEM 
           scope: GLOBAL
       - string:
           description: "sonarProjectKey"
@@ -29,12 +28,27 @@ credentials:
           id: "sonartoken"
           scope: GLOBAL
           secret: "{{ SONARQUBE_TOKEN }}"
-      #- usernamePassword:
-      #    description: "nexus_admin_and_pass"
-      #    id: "nexus_admin_id"
-      #    password: "{AQAAABAAAAAw1QHCO4rvzbL9q9xTfBaa65KHNs0zJVqfDAIlb5CkEhSDiYFAgG6aNj40XWdsiUmL0jfp6l00QkQE5wWCNkX1FQ==}"
-      #    scope: GLOBAL
-      #    username: "admin"
+      - usernamePassword:
+         description: "nexus_admin_and_pass"
+         id: "nexus_admin_id"
+         password: "{{ vault_nexus_admin_password }}"
+         scope: GLOBAL
+         username: "admin"
+      - string:
+          description: "Telegram Token"
+          id: "telegramToken"
+          scope: GLOBAL
+          secret: "{{ telegram_bot_token }}"
+      - string:
+          description: "telegram bot name"
+          id: "telegram_bot_name"
+          scope: GLOBAL
+          secret: "{{ telegram_bot_name }}"
+      - string:
+          description: "telegram channel id"
+          id: "telegram_channel_id"
+          scope: GLOBAL
+          secret: "{{ telegram_channel_id }}"
 jenkins:
   # agentProtocols,
   authorizationStrategy:
@@ -47,8 +61,6 @@ jenkins:
         - "USER:Job/Workspace:dev"
         - "USER:Overall/Administer:admin"
         - "USER:Overall/Read:authenticated"
-          #        - "GROUP:Run/Replay:authenticated"
-          #        - "Run/Update:authenticated"
   # clouds
   # crumbIssuer, 
   # disableRememberMe
@@ -97,9 +109,6 @@ jenkins:
       users:
         - id: "admin"
           password: "{{ ADMIN_PASS }}"
-#          properties:
-#            - timezone:
-#              timeZoneName: "Europe/Kiev"
         - id: "dev"
           password: "{{ DEV_PASS }}"
   slaveAgentPort: 50000
@@ -124,24 +133,22 @@ unclassified:
       triggers:
         skipScmCause: false
         skipUpstreamCause: false
-#  timestamper:
-#    allPipelines: false
-#    elapsedTimeFormat: "'<b>'HH:mm:ss.S'</b> '"
-#    systemTimeFormat: "'<b>'HH:mm:ss'</b> '"
   telegramBotGlobalConfiguration:
     approvalType: ALL
     botName: "{{ telegram_bot_name }}"
     botToken: "{{ telegram_bot_token }}"
     shouldLogToConsole: false
-#  globalNexusConfiguration:
-#    instanceId: "c74a2b65dc144e838587f89b371a9845"
-#    nxrmConfigs:
-#    - nxrm3Configuration:
-#        credentialsId: "nexus_admin_id"
-#        displayName: "NexusRepositoryDisplayName3"
-#        id: "NexusRepositoryID3"
-#        internalId: "e5e271b0-19e0-4e2b-b0bc-073134ff9d45"
-#        serverUrl: "http://192.168.1.77:8081"
+  globalNexusConfiguration:
+    instanceId: instanceId_77
+  #"c74a2b65dc144e838587f89b371a9845"
+    nxrmConfigs:
+    - nxrm3Configuration:
+        credentialsId: "nexus_admin_id"
+        displayName: "NexusRepositoryDisplayName3"
+        id: "NexusRepositoryID3"
+        internalId: "internalId3"
+        # "e5e271b0-19e0-4e2b-b0bc-073134ff9d45"
+        serverUrl: "{{ NEXUS_URL }}"
 security:
   scriptApproval:
     approvedSignatures:

@@ -2,7 +2,7 @@
 
 - name: Playbook for java installation
   gather_facts: true
-  hosts: jenkinsnode
+  hosts: java
   remote_user: vagrant
   serial: 5
 

@@ -51,20 +51,15 @@ install_sonarcube:
 
 install_nexus:
 	( source ../venv/bin/activate; \
-	  ansible-playbook install_nexus.yml -vvv; \
+	  ansible-playbook install_nexus.yml; \
     )
 
 install_jenkins:
 	( source ../venv/bin/activate; \
-	  ansible-playbook install_jenkins.yml -vvv; \
+	  ansible-playbook install_jenkins.yml; \
     )
 
 install_localtunnel:
 	( source ../venv/bin/activate; \
 	  ansible-playbook install_localtunnel.yml; \
-    )
-
-nexustmp:
-	( source ../venv/bin/activate; \
-	  ansible-playbook nexus_tmp.yml -vv; \
     )

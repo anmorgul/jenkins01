@@ -1,17 +1,153 @@
 ---
-
-- name: Playbook for nexus installation
-  gather_facts: true
+- name: Nexus
   hosts: nexus
-  become: true
+  become: yes
   remote_user: vagrant
 
   vars_files:
-      - ./.keys/nexus/secrets.yml
+      - ./.keys/nexus/nexus_secrets.yml
+      - ./.keys/nexus/jenkins_pass.yml
+  vars:
+    nexus_timezone: 'Europe/Kiev'
+    nexus_admin_password: "{{ vault_nexus_admin_password }}"
+    nexus_public_hostname: 'nexus.vm'
+    httpd_setup_enable: true
+    httpd_ssl_certificate_file: "{{ vault_httpd_ssl_certificate_file }}"
+    httpd_ssl_certificate_key_file: "{{ vault_httpd_ssl_certificate_key_file }}"
+    ldap_connections:
+      - ldap_name: 'Company LDAP'
+        ldap_protocol: 'ldaps'
+        ldap_hostname: 'ldap.company.com'
+        ldap_port: 636
+        ldap_search_base: 'dc=company,dc=net'
+        ldap_user_base_dn: 'ou=users'
+        ldap_user_object_class: 'inetOrgPerson'
+        ldap_user_id_attribute: 'uid'
+        ldap_user_real_name_attribute: 'cn'
+        ldap_user_email_attribute: 'mail'
+        ldap_group_base_dn: 'ou=groups'
+        ldap_group_object_class: 'posixGroup'
+        ldap_group_id_attribute: 'cn'
+        ldap_group_member_attribute: 'memberUid'
+        ldap_group_member_format: '${username}'
+    nexus_privileges:
+      - name: all-repos-read
+        description: 'Read & Browse access to all repos'
+        repository: '*'
+        actions:
+          - read
+          - browse
+      - name: company-project-deploy
+        description: 'Deployments to company-project'
+        repository: company-project
+        actions:
+          - add
+          - edit
+    nexus_roles:
+      - id: Developpers # maps to the LDAP group
+        name: developers
+        description: All developers
+        privileges:
+          - nx-search-read
+          - all-repos-read
+          - company-project-deploy
+        roles: []
+    nexus_local_users:
+      - username: "{{jenkins_username}}"
+        first_name: "{{ jenkins_first_name }}"
+        last_name: "{{ jenkins_last_name }}"
+        email: "{{ jenkins_email }}"
+        password: "{{ jenkins_password }}"
+        roles:
+          - Developpers # role ID here
+    nexus_blobstores:
+      - name: company-artifacts
+        path: /var/nexus/blobs/company-artifacts
+    nexus_scheduled_tasks:
+      - name: compact-blobstore
+        cron: '0 0 22 * * ?'
+        typeId: blobstore.compact
+        taskProperties:
+          blobstoreName: 'company-artifacts'
+    nexus_config_maven: false
+    nexus_config_pypi: false
+    nexus_config_docker: true
+    nexus_config_raw: true
+    nexus_config_rubygems: false
+    nexus_config_bower: false
+    nexus_config_npm: true
+    nexus_config_nuget: false
+    nexus_config_gitlfs: false
+    nexus_config_yum: false
+    nexus_config_apt: false
+    nexus_config_helm: false
+    nexus_config_r: false
+    nexus_config_p2: false
+    nexus_config_conda: false
+    nexus_config_go: false
+    # nexus_repos_maven_proxy:
+    #   - name: central
+    #     remote_url: 'https://repo1.maven.org/maven2/'
+    #     layout_policy: permissive
+    #   - name: alfresco
+    #     remote_url: 'https://artifacts.alfresco.com/nexus/content/groups/private/'
+    #     remote_username: 'secret-username'
+    #     remote_password: "{{ vault_alfresco_private_password }}"
+    #   - name: jboss
+    #     remote_url: 'https://repository.jboss.org/nexus/content/groups/public-jboss/'
+    #   - name: vaadin-addons
+    #     remote_url: 'https://maven.vaadin.com/vaadin-addons/'
+    #   - name: jaspersoft
+    #     remote_url: 'https://jaspersoft.artifactoryonline.com/jaspersoft/jaspersoft-repo/'
+    #     version_policy: mixed
+    # nexus_repos_maven_hosted:
+    #   - name: company-project
+    #     version_policy: mixed
+    #     write_policy: allow
+    #     blob_store: company-artifacts
+    # nexus_repos_maven_group:
+    #   - name: public
+    #     member_repos:
+    #       - central
+    #       - jboss
+    #       - vaadin-addons
+    #       - jaspersoft
+    nexus_repos_docker_hosted:
+      - name: what_docker_repo
+        # version_policy: mixed
+        write_policy: allow
+        blob_store: company-artifacts
 
-  # vars:
+    nexus_repos_npm_hosted:
+      - name: what_npm_repo
+        # version_policy: mixed
+        write_policy: allow
+        blob_store: company-artifacts
+
+    nexus_repos_raw_hosted:
+      - name: what_raw_repo
+        version_policy: mixed
+        write_policy: allow
+        blob_store: company-artifacts
+
+    nexus_repos_raw_group:
+      - name: what_raw_repo_group
+        member_repos:
+          - what_raw_repo
+
+  tasks:
+    - name: installing repo for Java 8 in Ubuntu
+      apt_repository: repo='ppa:openjdk-r/ppa'
 
   roles:
-    - nexus
-# http://anmorguljenkins.loca.lt
-...
+    
+    - role: geerlingguy.java
+      # when: "ansible_os_family == 'Debian'"
+      java_packages:
+        - openjdk-8-jdk
+    # - { role: geerlingguy.java, vars: See role doc for your distribution/version }
+    # Debian/Ubuntu only
+    - { role: geerlingguy.apache, apache_create_vhosts: no, apache_mods_enabled: ["proxy.load", "proxy_http.load", "headers.load"], apache_remove_default_vhost: true, tags: ["geerlingguy.apache"] }
+    # RedHat/CentOS only
+    # - { role: geerlingguy.apache, apache_create_vhosts: no, apache_remove_default_vhost: true, tags: ["geerlingguy.apache"] }
+    - { role: ansible-thoteam.nexus3-oss, tags: ['ansible-thoteam.nexus3-oss'] }

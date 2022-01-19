@@ -7,9 +7,6 @@ multibranch_pipeline.each { multibranch_pipeline ->
 
 def create_multibranch_pipeline(String name) {
     multibranchPipelineJob(name) {
-        properties  {
-            // disable(True)
-        }
         factory {
             workflowBranchProjectFactory {
                 scriptPath('jenkins/Jenkinsfile')
@@ -17,26 +14,14 @@ def create_multibranch_pipeline(String name) {
         }
         description("multibranch_pipeline")
         displayName("multibranch pipeline")
-        //disabled(True)
         branchSources {
             github {
-                // apiUri('https://github.com/')
                 id = name
-                // repositoryUrl("https://github.com/")
                 repoOwner("anmorgul")
                 repository("what-front")
                 includes('fake*')
-                // credentialsId('github_token')
-                // configuredByUrl(false)
                 scanCredentialsId('github_token')
             }
-            // buildStrategies {
-            //     buildAllBranches {
-            //         strategies {
-            //             skipInitialBuildOnFirstBranchIndexing()
-            //         }
-            //     }
-            // }
         }
         configure { node ->
             def webhookTrigger = node / triggers / 'com.igalg.jenkins.plugins.mswt.trigger.ComputedFolderWebHookTrigger' {
@@ -44,11 +29,6 @@ def create_multibranch_pipeline(String name) {
                 token("{{ GITHUB_WEBHOOK_TOKEN }}")
             }
         }
- //       configure { node ->
- //           def setdisabled = node / disabled  (true)
- //       }
-        // triggers{
-        // }
         orphanedItemStrategy {
             discardOldItems {
                 numToKeep(20)
