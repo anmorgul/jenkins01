@@ -1,0 +1,17 @@
+---
+
+- name: Playbook for localtunnel installation
+  gather_facts: true
+  hosts: deploy
+  become: true
+  remote_user: vagrant
+
+  vars_files:
+      - ./.keys/nginx/secrets.yml
+
+  vars:
+    - nginx_user: www-data
+
+  roles:
+    - nginx
+...

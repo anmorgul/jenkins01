@@ -16,9 +16,27 @@ credentials:
           secret: "{{ project_name }}"
       - basicSSHUserPrivateKey:
           id: jenkins_node_ssh_key
-          username: jenkinsnode
+          username: jenkins
           # passphrase: ${SSH_KEY_PASSWORD}
-          description: "SSH private key file."
+          description: "node1 SSH private key file."
+          privateKeySource:
+            directEntry:
+              privateKey: |
+                {{ lookup('file', '../.keys/jenkinsmain/id_rsa_jenkinsmain')  | indent(16) }}
+      - basicSSHUserPrivateKey:
+          id: dev_ssh_key
+          username: jenkins
+          # passphrase: ${SSH_KEY_PASSWORD}
+          description: "dev SSH private key file."
+          privateKeySource:
+            directEntry:
+              privateKey: |
+                {{ lookup('file', '../.keys/jenkinsmain/id_rsa_jenkinsmain')  | indent(16) }}
+      - basicSSHUserPrivateKey:
+          id: prod_ssh_key
+          username: jenkins
+          # passphrase: ${SSH_KEY_PASSWORD}
+          description: "prod SSH private key file."
           privateKeySource:
             directEntry:
               privateKey: |
@@ -92,7 +110,7 @@ jenkins:
         nodeName: "nodeName-jenkinsnode1-agent"
         # nodeProperties
         numExecutors: 2
-        remoteFS: "/home/jenkinsnode"
+        remoteFS: "/home/jenkins"
         # retentionStrategy
   numExecutors: 2 
   primaryView:
@@ -154,6 +172,10 @@ security:
     approvedSignatures:
     - "new java.io.File java.lang.String"
 tool:
+  ansibleInstallation:
+    installations:
+    - home: "./jenkins"
+      name: "What_Ansible"
   git:
     installations:
     - home: "git"

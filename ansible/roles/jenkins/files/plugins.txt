@@ -18,3 +18,4 @@ telegram-notifications
 pipeline-utility-steps
 nexus-jenkins-plugin
 nexus-artifact-uploader
+ansible

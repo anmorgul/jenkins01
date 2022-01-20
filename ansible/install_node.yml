@@ -8,7 +8,6 @@
   serial: 5
   vars:
     NODEJS_VERSION: "16"
-    # ansible_distribution_release: "Focal"
     NPM: "8"
   tasks:
     - name: Install the gpg key for nodejs LTS
@@ -26,11 +25,4 @@
       apt:
         name: nodejs
         state: present
-
-    # - name: Install the npm
-    #   apt:
-    #     name: npm
-    #     state: present
-    # - name: npm self-update
-    #   command: npm install npm@{{ NPM }} -g
 ...

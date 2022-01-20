@@ -13,7 +13,8 @@ install_req:
 	   python3 -m pip install --upgrade pip; \
        pip install -r ../requirements.txt; \
     )
-uninstall__snapd:
+
+uninstall_snapd:
 		(  python3 -m venv ../venv; \
 	   source ../venv/bin/activate; \
 	   ansible-playbook remove_snapd.yml \
@@ -26,6 +27,11 @@ generate_key:
 adduser:
 	(  source ../venv/bin/activate; \
 	   ansible-playbook adduser.yml; \
+    )
+
+install_ansible:
+	(  source ../venv/bin/activate; \
+	   ansible-playbook install_ansible.yml; \
     )
 
 install_docker:
@@ -42,6 +48,11 @@ install_java:
 install_node:
 	( source ../venv/bin/activate; \
 	  ansible-playbook install_node.yml; \
+    )
+
+install_nginx:
+	( source ../venv/bin/activate; \
+	  ansible-playbook install_nginx.yml; \
     )
 
 install_sonarcube:

@@ -14,7 +14,6 @@
       - ./.keys/nexus/jenkins_pass.yml
   vars:
     jenkins_version: "jenkins"
-    #jenkins_version: "lts-jdk11"
     jenkins_hostname: "jenkinsmain"
     jenkins_port: 8080
 
