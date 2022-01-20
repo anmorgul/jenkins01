@@ -28,20 +28,26 @@ Vagrant.configure("2") do |config|
     {
         :name => ENV['PROD_NAME'] || "prod",
         :ip => ENV['PROD_IP'] || "192.168.1.75",
-        :mem => ENV['PROD_MEMORY'] || "1024",
+        :mem => ENV['PROD_MEMORY'] || "512",
         :cpu => ENV['PROD_CPU'] || "2"
     },
     {
       :name => ENV['DEV_NAME'] || "dev",
       :ip => ENV['DEV_IP'] || "192.168.1.76",
-      :mem => ENV['DEV_MEMORY'] || "4096",
-      :cpu => ENV['DEV_CPU'] || "4"
+      :mem => ENV['DEV_MEMORY'] || "512",
+      :cpu => ENV['DEV_CPU'] || "2"
     },
     {
       :name => ENV['NEXUS_NAME'] || "nexus",
       :ip => ENV['NEXUS_IP'] || "192.168.1.77",
       :mem => ENV['NEXUS_MEMORY'] || "2048",
       :cpu => ENV['NEXUS_CPU'] || "2"
+    },
+    {
+      :name => ENV['STAGE_NAME'] || "stage",
+      :ip => ENV['STAGE_IP'] || "192.168.1.78",
+      :mem => ENV['STAGE_MEMORY'] || "512",
+      :cpu => ENV['STAGE_CPU'] || "2"
     }
 ]
 
