@@ -5,6 +5,8 @@ tmux new-session \; \
   send-keys 'vagrant ssh sonarqube -- -t "htop"' C-m \; \
   split-window -v \; \
   send-keys 'vagrant ssh dev -- -t "htop"' C-m \; \
+  split-window -h -p 66\; \
+  send-keys 'vagrant ssh stage -- -t "htop"' C-m \; \
   split-window -h \; \
   send-keys 'vagrant ssh prod -- -t "htop"' C-m \; \
   select-pane -t 1 \; \
